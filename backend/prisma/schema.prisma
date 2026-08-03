@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model Usuario{
+  id Int @id @default(autoincrement())
+  nome String 
+  email String @unique
+  senha String
+  telefone String
+  cpf String @unique
+  dtCriacao DateTime @default(now()) @map("dt_criacao")
+  dtAtualizacao DateTime @updatedAt @map("dt_atualizacao")
+  eAdmin Boolean @default(false) @map("e_admin")
+  
+  reservas Reserva[]
+
+  @@map("usuarios")
+}
+
+// Modelo que representa as salas disponíveis no coworking
+
+model Sala {
+  id Int       @id @default(autoincrement())
+  nome String
+  capacidade Int
+  descricao String?
+  precoLocacao Float @map("preco_locacao")
+  dtCriacao DateTime @default(now()) @map("dt_criacao")
+  dtAtualizacao DateTime @updatedAt @map("dt_atualizacao")
+  
+  reservas      Reserva[]
+
+  @@map("salas")
+}
+
+// Modelo intermediário para gerenciar as Reservas de salas pelos usuários
+
+model Reserva {
+  id Int @id @default(autoincrement())
+  dia DateTime
+  turno String
+  dtCriacao DateTime @default(now()) @map("dt_criacao")
+  idUsuario Int @map("id_usuario")
+  idSala Int @map("id_sala")
+  
+  usuario Usuario @relation(fields: [idUsuario], references: [id], onDelete: Cascade)
+  
+  sala Sala @relation(fields: [idSala], references: [id], onDelete: Cascade)
+
+@@unique([idSala, dia, turno])
+
+  @@map("reservas")
+}

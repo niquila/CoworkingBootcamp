@@ -1,0 +1,458 @@
+{
+  "info": {
+    "_postman_id": "a9b8c7d6-e5f4-4321-8765-fedcba987654",
+    "name": "Coworking App API Collection",
+    "description": "Collection completa para testes de todos os endpoints da API do Sistema de Gestão e Reserva de Coworking.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "usuarioId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "salaId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "reservaId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Geral / Sistema",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Verifica se a API está online e respondendo (health check)."
+          },
+          "response": []
+        },
+        {
+          "name": "Boas-Vindas / Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            },
+            "description": "Retorna mensagem de boas-vindas e versão da API."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Autenticação (Auth)",
+      "item": [
+        {
+          "name": "Login (Sucesso)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"membro@coworking.com\",\n  \"senha\": \"membro123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Realiza o login do usuário com credenciais válidas."
+          },
+          "response": []
+        },
+        {
+          "name": "Login (Senha Incorreta)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"membro@coworking.com\",\n  \"senha\": \"senha_errada\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Testa tentativa de login com senha incorreta (deve retornar HTTP 401)."
+          },
+          "response": []
+        },
+        {
+          "name": "Login (Campos Faltando)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"membro@coworking.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Testa tentativa de login sem informar a senha (deve retornar HTTP 400)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Usuários",
+      "item": [
+        {
+          "name": "Listar Todos os Usuários",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios"]
+            },
+            "description": "Retorna uma lista com todos os usuários cadastrados."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Novo Usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Andrade\",\n  \"email\": \"carlos.andrade@example.com\",\n  \"senha\": \"senhaSegura123\",\n  \"telefone\": \"11988887777\",\n  \"cpf\": \"111.222.333-44\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usuarios",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios"]
+            },
+            "description": "Cadastra um novo usuário no sistema."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Usuário por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios", "{{usuarioId}}"]
+            },
+            "description": "Busca detalhes de um usuário específico pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Usuário por ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carlos Andrade Silva\",\n  \"telefone\": \"11999998888\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios", "{{usuarioId}}"]
+            },
+            "description": "Atualiza os dados de um usuário existente."
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Usuário por ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/{{usuarioId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["usuarios", "{{usuarioId}}"]
+            },
+            "description": "Remove um usuário do sistema pelo seu ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Salas",
+      "item": [
+        {
+          "name": "Listar Todas as Salas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/salas",
+              "host": ["{{baseUrl}}"],
+              "path": ["salas"]
+            },
+            "description": "Retorna uma lista com todas as salas de coworking."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Salas Disponíveis (Filtro)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/salas?disponivel=true&dia=2026-12-25&turno=MANHA",
+              "host": ["{{baseUrl}}"],
+              "path": ["salas"],
+              "query": [
+                {
+                  "key": "disponivel",
+                  "value": "true",
+                  "description": "Ativa o filtro de salas disponíveis"
+                },
+                {
+                  "key": "dia",
+                  "value": "2026-12-25",
+                  "description": "Data no formato YYYY-MM-DD"
+                },
+                {
+                  "key": "turno",
+                  "value": "MANHA",
+                  "description": "Turno: MANHA, TARDE ou NOITE"
+                }
+              ]
+            },
+            "description": "Filtra e retorna apenas as salas que não possuem reserva para o dia e turno especificados."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Nova Sala",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Sala de Reuniões B\",\n  \"capacidade\": 12,\n  \"descricao\": \"Sala equipada com TV 65 polegadas e ar condicionado.\",\n  \"precoLocacao\": 85.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/salas",
+              "host": ["{{baseUrl}}"],
+              "path": ["salas"]
+            },
+            "description": "Cadastra uma nova sala de coworking."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Sala por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/salas/{{salaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["salas", "{{salaId}}"]
+            },
+            "description": "Busca os detalhes de uma sala específica pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Sala por ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capacidade\": 15,\n  \"precoLocacao\": 95.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/salas/{{salaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["salas", "{{salaId}}"]
+            },
+            "description": "Atualiza os dados de uma sala de coworking pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Sala por ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/salas/{{salaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["salas", "{{salaId}}"]
+            },
+            "description": "Remove uma sala do sistema pelo seu ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Reservas",
+      "item": [
+        {
+          "name": "Listar Todas as Reservas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservas"]
+            },
+            "description": "Retorna uma lista com todas as reservas efetuadas."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar Nova Reserva",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 2,\n  \"idSala\": 2,\n  \"dia\": \"2026-12-25\",\n  \"turno\": \"MANHA\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservas"]
+            },
+            "description": "Cria uma nova reserva para um usuário em determinada sala, dia e turno."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar Reserva por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{reservaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservas", "{{reservaId}}"]
+            },
+            "description": "Busca os detalhes de uma reserva específica pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar Reserva por ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"turno\": \"TARDE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{reservaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservas", "{{reservaId}}"]
+            },
+            "description": "Atualiza os dados de uma reserva existente (ex: alterar turno)."
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar Reserva por ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{reservaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reservas", "{{reservaId}}"]
+            },
+            "description": "Cancela/remove uma reserva pelo seu ID."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

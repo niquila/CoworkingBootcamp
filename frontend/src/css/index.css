@@ -1,0 +1,347 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --cor-preto: #111111;
+  --cor-branco: #ffffff;
+  --cor-cinza-claro: #f7f7f5;
+  --cor-cinza-borda: #e2e2de;
+  --cor-cinza-texto: #6b6b6b;
+  --cor-erro: #b3261e;
+  --cor-sucesso: #2e7d32;
+
+  --fonte-titulo: "Fraunces", Georgia, serif;
+  --fonte-corpo: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+  font-family: var(--fonte-corpo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--cor-preto);
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+
+p, label, span, li {
+  font-family: var(--fonte-corpo);
+  color: var(--cor-preto);
+}
+
+a {
+  color: var(--cor-preto);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--cor-cinza-texto);
+}
+
+/* ---------- Header Global de Subtítulo ---------- */
+
+.header-global-titulo {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  background-color: var(--cor-cinza-claro);
+  border-bottom: 1px solid var(--cor-cinza-borda);
+}
+
+.header-global-titulo span {
+  font-family: var(--fonte-titulo);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-preto);
+}
+
+/* ---------- Formulários ---------- */
+
+input,
+select,
+textarea {
+  font-family: var(--fonte-corpo);
+  font-size: 0.95rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--cor-cinza-borda);
+  border-radius: 6px;
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--cor-preto);
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.05);
+}
+
+input::placeholder {
+  color: var(--cor-cinza-texto);
+}
+
+/* ---------- Botões ---------- */
+
+button {
+  font-family: var(--fonte-corpo);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.65rem 1.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--cor-preto);
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.botao-secundario {
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+  border: 1px solid var(--cor-cinza-borda);
+}
+
+.botao-secundario:hover {
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+  border-color: var(--cor-preto);
+}
+
+/* ---------- Header / Navbar ---------- */
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.25rem 2rem;
+  background-color: var(--cor-preto);
+  border-bottom: 1px solid var(--cor-preto);
+}
+
+nav a {
+  font-family: var(--fonte-corpo);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #a3a3a3;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  padding-bottom: 4px;
+}
+
+nav a:hover {
+  color: var(--cor-branco);
+}
+
+/* Indicador de Página Ativa */
+nav a.ativo {
+  color: var(--cor-branco);
+  border-bottom: 2px solid var(--cor-branco);
+}
+
+nav button {
+  margin-left: auto;
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+  border-color: var(--cor-branco);
+}
+
+nav button:hover {
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+  border-color: var(--cor-branco);
+}
+
+/* ---------- Páginas e Tipografia ---------- */
+
+.pagina-salas,
+.pagina-reservas {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem 1.5rem;
+}
+
+.pagina-salas h1,
+.pagina-reservas h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subtitulo-pagina {
+  text-align: center;
+  color: var(--cor-cinza-texto);
+  font-size: 0.95rem;
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+
+/* ---------- Cards com Sombra Suave (Elevated) ---------- */
+
+.grid-salas,
+.grid-reservas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.75rem;
+}
+
+.card-sala,
+.card-reserva {
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-cinza-borda);
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card-sala:hover,
+.card-reserva:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  border-color: var(--cor-preto);
+}
+
+.card-sala .nome,
+.card-reserva .nome {
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.card-sala .descricao,
+.card-reserva .descricao {
+  font-size: 0.9rem;
+  color: var(--cor-cinza-texto);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Badges / Tags nas Salas */
+.tags-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background-color: var(--cor-cinza-claro);
+  color: var(--cor-preto);
+  border: 1px solid var(--cor-cinza-borda);
+}
+
+.badge.destaque {
+  border-color: var(--cor-preto);
+  background-color: var(--cor-branco);
+  font-weight: 600;
+}
+
+.botao-reservar {
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+
+/* ---------- Formulários Centralizados ---------- */
+
+.container-form {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.container-form h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.form-login {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.campo-grupo label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+.campo-grupo input {
+  width: 100%;
+  text-align: center;
+}
+
+/* ---------- Container Admin ---------- */
+
+.container-admin-form {
+  max-width: 480px;
+  margin: 0 auto 3.5rem auto;
+  padding: 2.25rem;
+  background-color: var(--cor-branco);
+  border: 1px solid var(--cor-cinza-borda);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-admin-form h2 {
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
