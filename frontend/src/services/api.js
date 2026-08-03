@@ -1,6 +1,6 @@
 import { getToken, logout } from "../utils/auth";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 // Função genérica para fazer requisições à API, incluindo o token de autenticação no cabeçalho e tratamento de erros.
 async function request(endpoint, options = {}) {
